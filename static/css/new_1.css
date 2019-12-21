@@ -1,0 +1,55 @@
+@charset "utf-8";
+/*通用*/
+
+#box{
+    padding: 50px;
+    width: 1200px;
+    /* border: solid 1px red; */
+    margin-top: 100px;
+    margin-left: 320px;
+    /* overflow: hidden; */
+   
+}
+#box1 {
+    border:solid 1px ;
+    width: 752px;
+    margin-right: 23px;
+    float: left;
+    position: relative;
+    padding: 50px;
+    margin-bottom: 50px;
+}
+#box1>h1{
+    text-align: center;
+}
+p{
+    text-indent: 2em;
+    width: 744px;
+    margin: 15px 0;
+    font-size: 16px;
+    color: #333;
+    line-height: 31px;
+   
+}
+#box1>img{
+    width:744px;
+    display: inline-block;
+    margin: 7px 0;
+    max-width: 100%;
+    
+}
+#box2>img{
+    width:300px;
+    height: 250px;
+    margin: 20px; 
+}
+#box2 {
+    width: 363px;
+    position: absolute;
+    top: 50%;
+    margin-top: -1314px;
+    margin-left: 802px;
+}
+#record{
+    padding:50px;
+}

@@ -1,0 +1,121 @@
+@charset "utf-8";
+/*通用*/
+
+#l_content{
+    width:300px;
+    border-radius: 20px;
+    margin-top: 24px;
+    padding: 0 24px;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
+    float: left;
+    margin-right:10px;
+} 
+#item{
+    font-size: 20px;
+    color: #333333;
+    line-height: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid #D8D8D8;
+} 
+#box{
+    padding: 50px;
+    width: 1500px;
+    /* border: solid 1px red; */
+    margin-top: 100px;
+    margin-left: 150px;
+    overflow: hidden;
+   
+}
+
+/* #car_name{
+    margin-bottom:10px;
+} */
+#box1 {
+    border:solid 1px #E6E6E6;
+    width: 752px;
+    margin-right: 23px;
+    float: left;
+    position: relative;
+    padding: 50px;
+    margin-bottom: 50px;
+}
+#box1>h1{
+    text-align: center;
+}
+#m_img{
+    
+    width:720px;
+    height:283px;
+    position: relative;
+}
+#m_img>img{
+    width:340px;
+    height: 273px;
+    /* margin-left: 5px; */
+    margin-right: 20px;
+    float: left;
+    border-radius: 5px;
+}
+p{
+    text-indent: 2em;
+    width: 744px;
+    margin: 15px 0;
+    font-size: 16px;
+    color: #333;
+    line-height: 31px;
+   
+}
+#box1>img{
+    width:744px;
+    display: inline-block;
+    margin: 7px 0;
+    max-width: 100%;
+    border-radius: 8px;
+    
+}
+#box2>img{
+    width:300px;
+    height: 250px;
+    margin: 20px; 
+    border-radius: 8px;
+}
+#box2 {
+    width: 363px;
+    position: absolute;
+    top: 50%;
+    margin-top: -1212px;
+    margin-left: 802px;
+    text-align: center;
+}
+#y_l{
+    width:282px;
+    height: 22px;
+    margin-left: 20px;
+   text-align: center;
+   
+}
+
+#record{
+    padding:50px;
+}
+table {
+    font-size: 16px;
+    text-align: center;
+    margin-top:-8px;
+    border-radius:10px; 
+    border: 2px solid #666;
+    width:744px;
+    margin-bottom: 20px;
+}
+
+td {
+    width:10px 25px;
+    border-top:solid 1px #000000;
+    border-left:solid 1px #000000;
+}
+#tr1{
+    font:#000000;
+    font-size:22px;
+}

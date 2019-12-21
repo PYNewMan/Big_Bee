@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新能源推荐</title>
+</head>
+<link rel="stylesheet" href="../static/css/recomment.css">
+<link href="../static/css/index.css" rel="Stylesheet" />
+<link href="../static/css/animate.css" rel="Stylesheet" />
+<link rel="stylesheet" href="../static/css/slide.css" />
+<link rel="icon" href="../static/images/index/py.ico">
+<script src="../static/js/init.js"></script>
+<script src="../static/js/jquery-3.1.1.min.js"></script>
+<script src="../static/js/jquery.page.js"></script>
+<script src='../static/js/index.js'></script>
+<script src="../static/mork/search_list.js"></script>
+<body>
+    <!-- 导航栏 -->
+    <div id="nav">
+        <div class="con">
+            <div class="log">新能源推荐</div>
+            <ul>
+                <li><a href="index.html" class="focus">网站首页</a></li>
+                <li><a href="recomment.html">排行榜</a></li>
+                <li><a href="pics.html">市场大盘</a></li>
+                <li><a href="">专题报告</a></li>
+                <li><a href="">留言</a></a></li>
+            </ul>
+            <div class="act">
+                <a id="na1" href="login.html">登录</a>
+                <a href="test_register.html">注册</a>
+            </div>
+        </div>
+    </div>
+
+     <div id="box">
+
+
+    <div id='r-item'>
+            <div id='ph'>
+                <p><h1>排行榜(排名前十车型)</h1></p>
+            </div>
+            <div id="top_five">
+            </div>
+        </div>
+        <div class="record">
+            <hr />
+            &copy;2019 黄蜂集团有限公司 版权所有 粤ICP证xxxxxxxxxxx
+        </div>
+    </div>
+
+    <script>
+        (function ($) {
+        $.ajax({
+                type: 'get',
+                url: baseUrl + '/v1/akcar/top_five',
+               
+                success: function (response) {
+                    if (response.code === 200){
+                            var html = ''
+                            for(var i=0; i<10;i++){
+                                // <a href='car_info.html?typeid='
+                                top_key = 'top_key'+i
+                                html += "<div id='r_content'><a href='car_info.html?car_id=" + response.data[top_key]['car_id'] + "'>"
+                                html += '<h2>'+response.data[top_key]['series']+'</h2></a>'
+                                html += "<p>" + '负责腾讯游戏运维支撑相关重点SaaS后台设计与开发；负责腾讯蓝鲸容器管理平台产品后台设计与开发。' + '</p>'
+                                html += '<img id="re_img" src="' + JSON.parse(response.data[top_key]['pic_url'])[5] + '" alt=""></div>'
+                                html += "</div>"
+                            }
+                            // html += "<div id='r_content'></div>"
+                    $('#top_five').html(html)
+                    }else {
+                        alert(response.error.message);
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+           
+        })(jQuery);
+    </script>
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    
+
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../static/js/index.js"></script>
+    <!--header-->
+    <script>
+            var loginName = window.localStorage.dashop_user;
+            console.log(loginName)
+            if (loginName) {
+                $('.act>#na1').html(loginName).on('click', (e) => {
+                    e.preventDefault()
+                    window.localStorage.removeItem('dashop_user');
+                    window.localStorage.removeItem('dashop_token');
+                    alert('退出登录')
+                    window.location.reload()
+                    $('#my_login').children().html('登录')
+    
+                })
+            }
+    </script>
+
+
+
+</body>
+
+</html>

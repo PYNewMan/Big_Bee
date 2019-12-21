@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title大黄蜂数据分析</title>
+  <link href="../static/css/index.css" rel="Stylesheet" />
+  <link href="../static/css/animate.css" rel="Stylesheet" />
+  <link rel="stylesheet" href="../static/css/slide.css" />
+  <link rel="icon" href="../static/images/index/py.ico">
+  <script src="../static/js/init.js"></script>
+  <link rel="stylesheet" href="../static/css/car_detail.css">
+</head>
+
+<body>
+
+
+  <script src="../static/js/jquery-3.1.1.min.js"></script>
+  <script src="../static/js/jquery.page.js"></script>
+  <script src='../static/js/index.js'></script>
+  <script src="../static/mork/search_list.js"></script>
+
+    <div id="aa">
+        <p><h2>  </h2></p>
+    </div>
+    <div id="nav">
+        <div class="con">
+            <div class="log">新能源推荐</div>
+            <ul>
+                <li><a href="index.html" class="focus">网站首页</a></li>
+                <li><a href="recomment.html">排行榜</a></li>
+                <li><a href="pics.html">市场大盘</a></li>
+                <li><a href="">专题报告</a></li>
+                <li><a href="">留言</a></a></li>
+            </ul>
+            <div class="act">
+                <a id="na1" href="login.html">登录</a>
+                <a href="test_register.html">注册</a>
+            </div>
+        </div>
+    </div>
+    <div id="main"></div>
+
+
+<script>
+  (function ($) {
+    $.getUrlParam = function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);         
+        var context = "";             
+        if (r != null)
+            context = r[2];             
+      reg = null;             
+      r = null; 
+        return context == null || context == "" || context == "undefined" ? "" : context;         
+    }
+
+   var value = $.getUrlParam('value')
+
+   order_v = "搜索内容为>" + decodeURI(value)
+   $('#aa h2').html(order_v);
+  //  skuid = '?value='+value
+  $.ajax({
+          type: 'get',
+          
+          url: baseUrl+'/v1/akcar/search?value='+value,
+          success: function (result) {
+              // result = {"code": 200, "data": index_data, "base_url": PIC_URL}
+              // var IMG_URL = result.base_url
+              
+              var len=0
+              var html1 = ''
+              for(data in result.data){
+                  len += 1
+              }
+              for(var i=0; i<len;i++){
+                  // 
+                  search = 'search'+i
+                  html1 += '<div id="box"><div id="l_k"><div id="tab"><table cellspacing="0" cellpadding="0">'
+                  html1 += "<tr id='tr1'><td>" + '厂商' + '</td>'
+                  html1 += "<td>" + '厂商指导价' + '</td>' + "<td>" + '车名' + '</td>'
+                  html1 += "<td>" + '综合最大功率(kW)' + '</td>' + "<td>" + '上市年份' + '</td>'
+                  html1 += "<td>" + '整车质保政策' + '</td>' + "<td>" + 'NEDC综合续航里程(km)' + '</td>' + "<td>" + '电池质保政策' + '</td></tr>'
+
+                  html1 += "<tr id='tr2'><td>" + result.data[search][2].厂商 + '</td>'
+                  html1 += '<td>' + result.data[search][2].厂商指导价 + '</td>'
+                  html1 += '<td>' + "<a href='car_info.html?car_id="+ result.data[search][0] + "'>" + result.data[search][1]+'</a>'+'</td>'
+                  html1 += '<td>' + result.data[search][2]['综合最大功率(kW)'] + '</td>'
+                  html1 += '<td>' + result.data[search][2].上市年份 + '</td>'
+                  html1 += '<td>' + result.data[search][2].整车质保政策 + '</td>'
+                  html1 += '<td>' + result.data[search][2]['NEDC综合续航里程(km)'] + '</td>'
+                  html1 += '<td>' + result.data[search][2].电池质保政策 + '</td></tr></table></div>'  
+
+                  html1 += '<div id="img"><img src="'+ result.data[search][3][0] +'" alt="">'
+                  html1 += '<img src="'+ result.data[search][3][1] +'" alt="">'
+                  html1 += '<img src="'+ result.data[search][3][2] +'" alt="">'
+                  html1 += '<img src="'+ result.data[search][3][3] +'" alt=""></div>'
+
+                  html1 += '</div></div>'
+              }
+              // $('#main').html(html1)
+
+              // html1 += '<h2 style="color:red;">' + '志鹏哥推荐车型' + '</h2>'
+              
+              html1 += '<hr><div id="bb"><h2>'  + '热门推荐' + '</h2>'
+              
+              var len1=0
+              for(ordata in result.ordata){
+                  len1 += 1
+              }
+              if(len1>4){len1=4}
+              html1 += '<div id="bb_img">'
+              for(var i=0; i<len1;i++){
+                  arg_key = 'arg_key'+i
+                  html1 += '<div ><img src="' + result.ordata[arg_key][3][0] +'" alt="">'
+                  html1 += '<p>' + "<a href='car_info.html?car_id="+ result.ordata[arg_key][0] + "'>" +  result.ordata[arg_key][1] +'</a>' + '</p>'
+                  html1 += '<p>' + '上汽大众朗逸降价0.8万' + '</p></div>'
+
+              }
+              html1 += '</div></div>'
+              $('#main').html(html1)
+
+          },
+          error: function (err) {
+              console.log( err)
+         }
+      })
+})(jQuery);
+
+</script>
+<script src="../static/js/jquery-3.1.1.min.js"></script>
+<script src="../static/js/index.js"></script>
+<!--header-->
+<script>
+        var loginName = window.localStorage.dashop_user;
+        console.log(loginName)
+        if (loginName) {
+            $('.act>#na1').html(loginName).on('click', (e) => {
+                e.preventDefault()
+                window.localStorage.removeItem('dashop_user');
+                window.localStorage.removeItem('dashop_token');
+                alert('退出登录')
+                window.location.reload()
+                $('#my_login').children().html('登录')
+
+            })
+        }
+    </script>
+
+
+</body>
+
+</html>

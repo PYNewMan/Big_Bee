@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+        <link rel="stylesheet" href="../static/css/car_info.css">
+        <link href="../static/css/index.css" rel="Stylesheet" />
+        <link href="../static/css/animate.css" rel="Stylesheet" />
+        <link rel="stylesheet" href="../static/css/slide.css" />
+        <link rel="icon" href="../static/images/index/py.ico">
+        <script src="../static/js/init.js"></script>
+        <link rel="stylesheet" href="../static/css/car_detail22.css">
+<script>
+
+</script>
+<body>
+<!-- 导航栏 -->
+<div id="nav">
+        <div class="con">
+            <div class="log">新能源推荐</div>
+            <ul>
+                <li><a href="index.html" class="focus">网站首页</a></li>
+                <li><a href="recomment.html">排行榜</a></li>
+                <li><a href="pics.html">市场大盘</a></li>
+                <li><a href="">专题报告</a></li>
+                <li><a href="">留言</a></a></li>
+
+            </ul>
+            <div class="act">
+                <a href="login.html">登录</a><a href="">注册</a>
+            </div>
+        </div>
+    </div>
+
+<!--  新闻页面主体 -->
+
+
+<div id="box" >
+        <div id='l_content'>
+                <p style="display:block;">
+                    <h1>筛选条件</h1>
+                </p>
+                <div id='box0'>
+                    <ul id="sub_nav">
+                        <div id='item'>
+                            <li><a id='id1' href="#" style="display:block">产地</a></li>
+                        </div>
+                        <div id='item'>
+                            <li><a id='id2' href="#">外观</a></li>
+                        </div>
+                
+                        <div id='item'>
+                            <li><a id='id3' href="#">内饰</a></li>
+                        </div>
+                
+                        <div id='item'>
+                            <li><a id='id4' href="#">空间</a></li>
+                        </div>
+                
+                        <div id='item'>
+                            <li><a id='id5' href="#">舒适</a></li>
+                        </div>
+                
+                        <div id='item'>
+                            <li><a id='id6' href="#">油耗</a></li>
+                        </div>
+                
+                        <div id='item'>
+                            <li><a id='id7' href="#">动力</a></li>
+                        </div>
+                
+                        <div id='item'>
+                            <li><a id='id8' href="#">操控</a></li>
+                        </div>
+                
+                        <div id='item'>
+                            <li><a id='id9' href="#">性价比</a></li>
+                        </div> 
+                    </div>
+            </div>
+
+    <div id="box1">
+        
+    </div>
+
+    <!-- 页面底部-备案号 #footer -->
+    <div class="record">
+        <hr/>
+        &copy;2019 黄蜂集团有限公司 版权所有 粤ICP证xxxxxxxxxxx
+    </div>
+</div>
+
+<script src="../static/js/jquery-3.1.1.min.js"></script>
+<script src="../static/js/jquery.page.js"></script>
+
+<script>
+        (function ($) {
+        $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+        var caruid = $.getUrlParam('car_id')
+        $("#id1").click(function () {
+            var value = document.getElementById("id1").innerText;
+            $.ajax({
+                    type: 'get',
+                    url: baseUrl + '/v1/akcar/like_car?value='+value+'&'+'caruid='+caruid,
+                    success: function (response) {
+                        if (response.code === 200){
+                                var html1 = ''
+                                var len = 0
+                                for(word in response.data){
+                                    len += 1
+                                }
+                                for(var i=0; i<len;i++){
+                                    html1 += '<div id="box3"><div id="l_k1"><div id="tab1"><table cellspacing="0" cellpadding="0">'
+                                    html1 += "<tr id='tr'><td>" + '厂商' + '</td>'
+                                    html1 += "<td>" + '厂商指导价' + '</td>' + "<td>" + '车名' + '</td>'
+                                    html1 += "<td>" + '综合最大功率(kW)' + '</td>' + "<td>" + '上市年份' + '</td>'
+                                    html1 += "<td>" + '整车质保政策' + '</td>' + "<td>" + 'NEDC综合续航里程(km)' + '</td>' + "<td>" + '电池质保政策' + '</td></tr>'
+
+                                    html1 += "<tr id='tr1'><td>" + response.data[i].厂商 + '</td>'
+                                    html1 += '<td>' + response.data[i].厂商指导价 + '</td>'
+                                    html1 += '<td>' + "<a href='car_info.html?car_id="+ response.data[i]['car_id'] + "'>" + response.data[i]['brand']+'</a>'+'</td>'
+                                    html1 += '<td>' + response.data[i]['综合最大功率(kW)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].上市年份 + '</td>'
+                                    html1 += '<td>' + response.data[i].整车质保政策 + '</td>'
+                                    html1 += '<td>' + response.data[i]['NEDC综合续航里程(km)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].电池质保政策 + '</td></tr></table></div>'  
+
+                                    html1 += '<div id="img1" ><img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[0] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[1] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[2] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[3] +'" alt=""></div>'
+
+                                    html1 += '</div></div>'
+                                }
+                                
+                            $('#box1').html(html1)
+                        }else {
+                            alert(response.error.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+        })
+        $("#id2").click(function () {
+            var value = document.getElementById("id2").innerText;
+            $.ajax({
+                    type: 'get',
+                    url: baseUrl + '/v1/akcar/like_car?value='+value+'&'+'caruid='+caruid,
+                    success: function (response) {
+                        if (response.code === 200){
+                                var html1 = ''
+                                var len = 0
+                                for(word in response.data){
+                                    len += 1
+                                }
+                                for(var i=0; i<len;i++){
+                                    html1 += '<div id="box3"><div id="l_k1"><div id="tab1"><table cellspacing="0" cellpadding="0">'
+                                    html1 += "<tr id='tr'><td>" + '厂商' + '</td>'
+                                    html1 += "<td>" + '厂商指导价' + '</td>' + "<td>" + '车名' + '</td>'
+                                    html1 += "<td>" + '综合最大功率(kW)' + '</td>' + "<td>" + '上市年份' + '</td>'
+                                    html1 += "<td>" + '整车质保政策' + '</td>' + "<td>" + 'NEDC综合续航里程(km)' + '</td>' + "<td>" + '电池质保政策' + '</td></tr>'
+
+                                    html1 += "<tr id='tr1'><td>" + response.data[i].厂商 + '</td>'
+                                    html1 += '<td>' + response.data[i].厂商指导价 + '</td>'
+                                    html1 += '<td>' + "<a href='car_info.html?car_id="+ response.data[i]['car_id'] + "'>" + response.data[i]['brand']+'</a>'+'</td>'
+                                    html1 += '<td>' + response.data[i]['综合最大功率(kW)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].上市年份 + '</td>'
+                                    html1 += '<td>' + response.data[i].整车质保政策 + '</td>'
+                                    html1 += '<td>' + response.data[i]['NEDC综合续航里程(km)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].电池质保政策 + '</td></tr></table></div>'  
+
+                                    html1 += '<div id="img1" ><img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[0] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[1] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[2] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[3] +'" alt=""></div>'
+
+                                    html1 += '</div></div>'
+                                }
+                                
+                            $('#box1').html(html1)
+                        }else {
+                            alert(response.error.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+        })
+        $("#id3").click(function () {
+            var value = document.getElementById("id3").innerText;
+            $.ajax({
+                    type: 'get',
+                    url: baseUrl + '/v1/akcar/like_car?value='+value+'&'+'caruid='+caruid,
+                    success: function (response) {
+                        if (response.code === 200){
+                                var html1 = ''
+                                var len = 0
+                                for(word in response.data){
+                                    len += 1
+                                }
+                                for(var i=0; i<len;i++){
+                                    html1 += '<div id="box3"><div id="l_k1"><div id="tab1"><table cellspacing="0" cellpadding="0">'
+                                    html1 += "<tr id='tr'><td>" + '厂商' + '</td>'
+                                    html1 += "<td>" + '厂商指导价' + '</td>' + "<td>" + '车名' + '</td>'
+                                    html1 += "<td>" + '综合最大功率(kW)' + '</td>' + "<td>" + '上市年份' + '</td>'
+                                    html1 += "<td>" + '整车质保政策' + '</td>' + "<td>" + 'NEDC综合续航里程(km)' + '</td>' + "<td>" + '电池质保政策' + '</td></tr>'
+
+                                    html1 += "<tr id='tr1'><td>" + response.data[i].厂商 + '</td>'
+                                    html1 += '<td>' + response.data[i].厂商指导价 + '</td>'
+                                    html1 += '<td>' + "<a href='car_info.html?car_id="+ response.data[i]['car_id'] + "'>" + response.data[i]['brand']+'</a>'+'</td>'
+                                    html1 += '<td>' + response.data[i]['综合最大功率(kW)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].上市年份 + '</td>'
+                                    html1 += '<td>' + response.data[i].整车质保政策 + '</td>'
+                                    html1 += '<td>' + response.data[i]['NEDC综合续航里程(km)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].电池质保政策 + '</td></tr></table></div>'  
+
+                                    html1 += '<div id="img1" ><img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[0] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[1] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[2] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[3] +'" alt=""></div>'
+
+                                    html1 += '</div></div>'
+                                }
+                                
+                            $('#box1').html(html1)
+                        }else {
+                            alert(response.error.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+        })
+        $("#id4").click(function () {
+            var value = document.getElementById("id4").innerText;
+            $.ajax({
+                    type: 'get',
+                    url: baseUrl + '/v1/akcar/like_car?value='+value+'&'+'caruid='+caruid,
+                    success: function (response) {
+                        if (response.code === 200){
+                                var html1 = ''
+                                var len = 0
+                                for(word in response.data){
+                                    len += 1
+                                }
+                                for(var i=0; i<len;i++){
+                                    html1 += '<div id="box3"><div id="l_k1"><div id="tab1"><table cellspacing="0" cellpadding="0">'
+                                    html1 += "<tr id='tr'><td>" + '厂商' + '</td>'
+                                    html1 += "<td>" + '厂商指导价' + '</td>' + "<td>" + '车名' + '</td>'
+                                    html1 += "<td>" + '综合最大功率(kW)' + '</td>' + "<td>" + '上市年份' + '</td>'
+                                    html1 += "<td>" + '整车质保政策' + '</td>' + "<td>" + 'NEDC综合续航里程(km)' + '</td>' + "<td>" + '电池质保政策' + '</td></tr>'
+
+                                    html1 += "<tr id='tr1'><td>" + response.data[i].厂商 + '</td>'
+                                    html1 += '<td>' + response.data[i].厂商指导价 + '</td>'
+                                    html1 += '<td>' + "<a href='car_info.html?car_id="+ response.data[i]['car_id'] + "'>" + response.data[i]['brand']+'</a>'+'</td>'
+                                    html1 += '<td>' + response.data[i]['综合最大功率(kW)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].上市年份 + '</td>'
+                                    html1 += '<td>' + response.data[i].整车质保政策 + '</td>'
+                                    html1 += '<td>' + response.data[i]['NEDC综合续航里程(km)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].电池质保政策 + '</td></tr></table></div>'  
+
+                                    html1 += '<div id="img1" ><img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[0] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[1] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[2] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[3] +'" alt=""></div>'
+
+                                    html1 += '</div></div>'
+                                }
+                                
+                            $('#box1').html(html1)
+                        }else {
+                            alert(response.error.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+        })
+        $("#id5").click(function () {
+            var value = document.getElementById("id5").innerText;
+            $.ajax({
+                    type: 'get',
+                    url: baseUrl + '/v1/akcar/like_car?value='+value+'&'+'caruid='+caruid,
+                    success: function (response) {
+                        if (response.code === 200){
+                                var html1 = ''
+                                var len = 0
+                                for(word in response.data){
+                                    len += 1
+                                }
+                                for(var i=0; i<len;i++){
+                                    html1 += '<div id="box3"><div id="l_k1"><div id="tab1"><table cellspacing="0" cellpadding="0">'
+                                    html1 += "<tr id='tr'><td>" + '厂商' + '</td>'
+                                    html1 += "<td>" + '厂商指导价' + '</td>' + "<td>" + '车名' + '</td>'
+                                    html1 += "<td>" + '综合最大功率(kW)' + '</td>' + "<td>" + '上市年份' + '</td>'
+                                    html1 += "<td>" + '整车质保政策' + '</td>' + "<td>" + 'NEDC综合续航里程(km)' + '</td>' + "<td>" + '电池质保政策' + '</td></tr>'
+
+                                    html1 += "<tr id='tr1'><td>" + response.data[i].厂商 + '</td>'
+                                    html1 += '<td>' + response.data[i].厂商指导价 + '</td>'
+                                    html1 += '<td>' + "<a href='car_info.html?car_id="+ response.data[i]['car_id'] + "'>" + response.data[i]['brand']+'</a>'+'</td>'
+                                    html1 += '<td>' + response.data[i]['综合最大功率(kW)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].上市年份 + '</td>'
+                                    html1 += '<td>' + response.data[i].整车质保政策 + '</td>'
+                                    html1 += '<td>' + response.data[i]['NEDC综合续航里程(km)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].电池质保政策 + '</td></tr></table></div>'  
+
+                                    html1 += '<div id="img1" ><img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[0] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[1] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[2] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[3] +'" alt=""></div>'
+
+                                    html1 += '</div></div>'
+                                }
+                                
+                            $('#box1').html(html1)
+                        }else {
+                            alert(response.error.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+        })
+        $("#id6").click(function () {
+            var value = document.getElementById("id6").innerText;
+            $.ajax({
+                    type: 'get',
+                    url: baseUrl + '/v1/akcar/like_car?value='+value+'&'+'caruid='+caruid,
+                    success: function (response) {
+                        if (response.code === 200){
+                                var html1 = ''
+                                var len = 0
+                                for(word in response.data){
+                                    len += 1
+                                }
+                                for(var i=0; i<len;i++){
+                                    html1 += '<div id="box3"><div id="l_k1"><div id="tab1"><table cellspacing="0" cellpadding="0">'
+                                    html1 += "<tr id='tr'><td>" + '厂商' + '</td>'
+                                    html1 += "<td>" + '厂商指导价' + '</td>' + "<td>" + '车名' + '</td>'
+                                    html1 += "<td>" + '综合最大功率(kW)' + '</td>' + "<td>" + '上市年份' + '</td>'
+                                    html1 += "<td>" + '整车质保政策' + '</td>' + "<td>" + 'NEDC综合续航里程(km)' + '</td>' + "<td>" + '电池质保政策' + '</td></tr>'
+
+                                    html1 += "<tr id='tr1'><td>" + response.data[i].厂商 + '</td>'
+                                    html1 += '<td>' + response.data[i].厂商指导价 + '</td>'
+                                    html1 += '<td>' + "<a href='car_info.html?car_id="+ response.data[i]['car_id'] + "'>" + response.data[i]['brand']+'</a>'+'</td>'
+                                    html1 += '<td>' + response.data[i]['综合最大功率(kW)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].上市年份 + '</td>'
+                                    html1 += '<td>' + response.data[i].整车质保政策 + '</td>'
+                                    html1 += '<td>' + response.data[i]['NEDC综合续航里程(km)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].电池质保政策 + '</td></tr></table></div>'  
+
+                                    html1 += '<div id="img1" ><img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[0] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[1] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[2] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[3] +'" alt=""></div>'
+
+                                    html1 += '</div></div>'
+                                }
+                                
+                            $('#box1').html(html1)
+                        }else {
+                            alert(response.error.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+        })
+        $("#id7").click(function () {
+            var value = document.getElementById("id7").innerText;
+            $.ajax({
+                    type: 'get',
+                    url: baseUrl + '/v1/akcar/like_car?value='+value+'&'+'caruid='+caruid,
+                    success: function (response) {
+                        if (response.code === 200){
+                                var html1 = ''
+                                var len = 0
+                                for(word in response.data){
+                                    len += 1
+                                }
+                                for(var i=0; i<len;i++){
+                                    html1 += '<div id="box3"><div id="l_k1"><div id="tab1"><table cellspacing="0" cellpadding="0">'
+                                    html1 += "<tr id='tr'><td>" + '厂商' + '</td>'
+                                    html1 += "<td>" + '厂商指导价' + '</td>' + "<td>" + '车名' + '</td>'
+                                    html1 += "<td>" + '综合最大功率(kW)' + '</td>' + "<td>" + '上市年份' + '</td>'
+                                    html1 += "<td>" + '整车质保政策' + '</td>' + "<td>" + 'NEDC综合续航里程(km)' + '</td>' + "<td>" + '电池质保政策' + '</td></tr>'
+
+                                    html1 += "<tr id='tr1'><td>" + response.data[i].厂商 + '</td>'
+                                    html1 += '<td>' + response.data[i].厂商指导价 + '</td>'
+                                    html1 += '<td>' + "<a href='car_info.html?car_id="+ response.data[i]['car_id'] + "'>" + response.data[i]['brand']+'</a>'+'</td>'
+                                    html1 += '<td>' + response.data[i]['综合最大功率(kW)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].上市年份 + '</td>'
+                                    html1 += '<td>' + response.data[i].整车质保政策 + '</td>'
+                                    html1 += '<td>' + response.data[i]['NEDC综合续航里程(km)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].电池质保政策 + '</td></tr></table></div>'  
+
+                                    html1 += '<div id="img1" ><img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[0] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[1] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[2] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[3] +'" alt=""></div>'
+
+                                    html1 += '</div></div>'
+                                }
+                                
+                            $('#box1').html(html1)
+                        }else {
+                            alert(response.error.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+        })
+        $("#id8").click(function () {
+            var value = document.getElementById("id8").innerText;
+            $.ajax({
+                    type: 'get',
+                    url: baseUrl + '/v1/akcar/like_car?value='+value+'&'+'caruid='+caruid,
+                    success: function (response) {
+                        if (response.code === 200){
+                                var html1 = ''
+                                var len = 0
+                                for(word in response.data){
+                                    len += 1
+                                }
+                                for(var i=0; i<len;i++){
+                                    html1 += '<div id="box3"><div id="l_k1"><div id="tab1"><table cellspacing="0" cellpadding="0">'
+                                    html1 += "<tr id='tr'><td>" + '厂商' + '</td>'
+                                    html1 += "<td>" + '厂商指导价' + '</td>' + "<td>" + '车名' + '</td>'
+                                    html1 += "<td>" + '综合最大功率(kW)' + '</td>' + "<td>" + '上市年份' + '</td>'
+                                    html1 += "<td>" + '整车质保政策' + '</td>' + "<td>" + 'NEDC综合续航里程(km)' + '</td>' + "<td>" + '电池质保政策' + '</td></tr>'
+
+                                    html1 += "<tr id='tr1'><td>" + response.data[i].厂商 + '</td>'
+                                    html1 += '<td>' + response.data[i].厂商指导价 + '</td>'
+                                    html1 += '<td>' + "<a href='car_info.html?car_id="+ response.data[i]['car_id'] + "'>" + response.data[i]['brand']+'</a>'+'</td>'
+                                    html1 += '<td>' + response.data[i]['综合最大功率(kW)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].上市年份 + '</td>'
+                                    html1 += '<td>' + response.data[i].整车质保政策 + '</td>'
+                                    html1 += '<td>' + response.data[i]['NEDC综合续航里程(km)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].电池质保政策 + '</td></tr></table></div>'  
+
+                                    html1 += '<div id="img1" ><img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[0] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[1] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[2] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[3] +'" alt=""></div>'
+
+                                    html1 += '</div></div>'
+                                }
+                                
+                            $('#box1').html(html1)
+                        }else {
+                            alert(response.error.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+        })
+        $("#id9").click(function () {
+            var value = document.getElementById("id9").innerText;
+            $.ajax({
+                    type: 'get',
+                    url: baseUrl + '/v1/akcar/like_car?value='+value+'&'+'caruid='+caruid,
+                    success: function (response) {
+                        if (response.code === 200){
+                                var html1 = ''
+                                var len = 0
+                                for(word in response.data){
+                                    len += 1
+                                }
+                                for(var i=0; i<len;i++){
+                                    html1 += '<div id="box3"><div id="l_k1"><div id="tab1"><table cellspacing="0" cellpadding="0">'
+                                    html1 += "<tr id='tr'><td>" + '厂商' + '</td>'
+                                    html1 += "<td>" + '厂商指导价' + '</td>' + "<td>" + '车名' + '</td>'
+                                    html1 += "<td>" + '综合最大功率(kW)' + '</td>' + "<td>" + '上市年份' + '</td>'
+                                    html1 += "<td>" + '整车质保政策' + '</td>' + "<td>" + 'NEDC综合续航里程(km)' + '</td>' + "<td>" + '电池质保政策' + '</td></tr>'
+
+                                    html1 += "<tr id='tr1'><td>" + response.data[i].厂商 + '</td>'
+                                    html1 += '<td>' + response.data[i].厂商指导价 + '</td>'
+                                    html1 += '<td>' + "<a href='car_info.html?car_id="+ response.data[i]['car_id'] + "'>" + response.data[i]['brand']+'</a>'+'</td>'
+                                    html1 += '<td>' + response.data[i]['综合最大功率(kW)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].上市年份 + '</td>'
+                                    html1 += '<td>' + response.data[i].整车质保政策 + '</td>'
+                                    html1 += '<td>' + response.data[i]['NEDC综合续航里程(km)'] + '</td>'
+                                    html1 += '<td>' + response.data[i].电池质保政策 + '</td></tr></table></div>'  
+
+                                    html1 += '<div id="img1" ><img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[0] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[1] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[2] +'" alt="">'
+                                    html1 += '<img class="img2" src="'+ JSON.parse(response.data[i]['pic_url'])[3] +'" alt=""></div>'
+
+                                    html1 += '</div></div>'
+                                }
+                                
+                            $('#box1').html(html1)
+                        }else {
+                            alert(response.error.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+        })
+        $.ajax({
+                type: 'get',
+                url: baseUrl+"/v1/akcar/ck_key?car_id="+caruid,
+                success: function (result) {
+                    if (result.code === 200){
+                        var html = ''
+                        html += '<h1>' + result.ordata['brand'] + '</h1><br><p>作者:Look like a Dog</p><br>'
+                        html += '<table cellspacing="0" cellpadding="0"><tr id="tr1" style="font-size:18px;">'
+                        html += '<td>综合评分</td><td>外观</td><td>内饰</td><td>空间</td><td>舒适</td><td>油耗</td><td>动力</td><td>操控</td><td>性价比</td></tr>'
+                        html += '<tr id="tr2"><td>'+result.ordata['综合评分']+'</td>'+'<td>'+result.ordata['外观']+'</td>'+'<td>'+result.ordata['内饰']+'</td>'+'<td>'+result.ordata['空间']+'</td>'+'<td>'+result.ordata['舒适']+'</td>'
+                        html += '<td>'+result.ordata['油耗']+'</td>'+'<td>'+result.ordata['动力']+'</td>'+'<td>'+result.ordata['操控']+'</td>'+'<td>'+result.ordata['性价比']+'</td></tr></table>'
+                        html += '<img id="img_l1" src="' + JSON.parse(result.ordata['pic_url'])[1] + '" alt="">'+'<img id="img_l3" src="' + JSON.parse(result.ordata['pic_url'])[2] + '" alt="">'
+                        html += '<p>' + '动力方面，'+result.ordata['brand']+'继续搭载' + result.ordata['发动机'] + '发动机，最大功率为'+result.ordata['电动机最大功率(kW)']+'，最大扭矩为'+result.ordata['综合最大扭矩(Nm)']+'Nm，传动系统匹配5速手动和6速手自一体变速箱。'+'</p>'
+                        html += '<p>'+ result.ordata['brand']+'基于上一代车型打造，整体造型变化不大，但在细节部分有所调整。最大的不同在于前保险杠的造型，'+ result.ordata['brand'] +'的前保险杠变为了三部分，更加凹凸有致，在此基础上还加入了一条贯穿车头的镀铬装饰条，视觉效果更佳。车身尺寸方面，其其长宽高分别为'+ result.ordata['长×宽×高(mm)'] +'，轴距为'+ result.ordata['轴距(mm)'] +'。' +'</p>'
+                        html += "<div id='m_img'>"+'<img src="'+JSON.parse(result.ordata['pic_url'])[3]+'" alt="">'+'<img src="'+JSON.parse(result.ordata['pic_url'])[10]+'" alt=""></div>'
+                        html += '<p>'+'内饰方面，'+ result.ordata['brand']+'同样采用了此前的设计语言，十分经典。配置方面，该车配备了ESP电子稳定系统、RKA智能胎压监测、MKB多次碰撞预防、主/副驾驶正面安全气囊、PM2.5粉尘过滤、倒车雷达等配置。在此基础上，高配车型还配备了LED日间行车灯、定速巡航、多功能方向盘、真皮/织物拼接座椅、电动天窗等配置。'+'</p>'
+                        html += '<img id="img_l2" src="'+JSON.parse(result.ordata['pic_url'])[10]+'" alt="">'
+                        html += '<p>'+ '新车可实现最长100秒的熄火行驶，同时带有闭缸模式，从而实现燃油经济性的提升。底盘方面，新车还采用了自适应空气悬架，标准状态下的车身高度相比新A6 Avant低20毫米，速度超过120km/h后还会再降低10毫米。此外，驾驶员还可选择将车身提高20毫米，以应对减速带、地库出入口等路况。' +'</p>'
+                        // $('#box1').html(html)
+                        
+                        
+                        html += '<div id="box2"><div id="y_l"><h1>'+'推荐车型'+'</h1></div><br>'
+                        for(var i=0;i<5;i++){
+                            mess = result.data[i]
+                            html += "<a href='car_info.html?car_id="+ mess['car_id'] + "'>"
+                            html += '<img src="' + JSON.parse(mess['pic_url'])[1] + '" alt=""></a>'
+                            html += '<h3>'+mess['brand']+'&nbsp;'+ '综合评分:' +mess['综合评分']+'</h3>'
+                        }
+                        html += '</div>'
+                        $('#box1').html(html)
+                    }else {
+                        alert(result.error.message);
+                    }
+                }
+        })
+        
+    })(jQuery);
+
+
+</script>
+
+</body>
+
+</html>
